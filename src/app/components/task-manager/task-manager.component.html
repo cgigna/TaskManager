@@ -1,0 +1,64 @@
+<button (click)="exportToPDF()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+  📄 Exportar a PDF
+</button>
+
+<div class="max-w-7xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg" id="task-list">
+  <h1 class="text-3xl font-bold text-center mb-6 text-gray-700">Task Manager 📝</h1>
+
+  <div class="flex gap-2 mb-6">
+    <input 
+      [(ngModel)]="newTaskTitle" 
+      type="text" 
+      placeholder="Nueva tarea..." 
+      class="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+    <button 
+      (click)="addTask()" 
+      class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition"
+    >
+      Agregar
+    </button>
+  </div>
+
+  <!-- Contenedor de tareas con Grid -->
+  <div class="grid grid-cols-2 gap-6">
+    
+    <!-- Tareas Activas -->
+    <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">📌 Tareas Activas</h2>
+      <ul class="space-y-3">
+        <li *ngFor="let task of tasks; let i = index" class="flex justify-between items-center p-3 bg-white rounded-lg shadow">
+          <span class="text-gray-800 text-lg">{{ task }}</span>
+          <button 
+            (click)="completeTask(task)" 
+            class="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition text-sm"
+          >
+            ✅ Completar
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tareas Completadas -->
+    <div class="bg-gray-200 p-4 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">✅ Tareas Completadas</h2>
+      
+      <div *ngFor="let week of Object.keys(completedTasks)" class="mb-4">
+        <h3 class="text-lg font-medium text-gray-600 bg-gray-300 p-2 rounded-md">{{ week }}</h3>
+        <ul class="mt-2 space-y-2">
+          <li *ngFor="let task of completedTasks[week]; let j = index" 
+              class="flex justify-between items-center p-3 bg-white rounded-lg shadow text-gray-600">
+            <span class="text-lg">{{ task }}</span>
+            <button 
+              (click)="removeCompletedTask(week, j)" 
+              class="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition text-sm"
+            >
+              ❌
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  
+  </div> 
+</div>
